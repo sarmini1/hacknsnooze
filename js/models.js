@@ -36,7 +36,7 @@ class Story {
 
 class StoryList {
   constructor(stories) {
-    this.stories = stories;
+    this.stories = stories; //will need to add new story to this
   }
 
   /** Generate a new StoryList. It:
@@ -73,8 +73,31 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
+  async addStory(user, {author, title, url}) {
     // UNIMPLEMENTED: complete this function!
+
+    //create a variable to submit a post request to /stories endpoint and save the response
+      //post request will contain the token (from localStorage) in the body
+      //post request will contain user.name, title, url
+    
+      const response = await axios({
+        url: `${BASE_URL}/stories`,
+        method: "POST",
+        data: { token: user.loginToken, story: { author, title, url } }, 
+      });
+      
+      return response;
+      //let newStory = new Story(
+      //  response.data.story.storyId,
+      //  response.data.story.title,
+      //  response.data.story.author,
+      //  response.data.story.url,
+      //  response.data.story.username,
+      // response.data.story.createdAt
+      //);
+      //console.log(newStory);
+
+      //StoryList.stories.unshift(newStory);
   }
 }
 
