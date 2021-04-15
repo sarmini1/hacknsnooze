@@ -73,9 +73,10 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory(user, {author, title, url}) {
+  async addStory(user, {title, author, url}) {
     // UNIMPLEMENTED: complete this function!
 
+    console.log("add story ran")
     //create a variable to submit a post request to /stories endpoint and save the response
       //post request will contain the token (from localStorage) in the body
       //post request will contain user.name, title, url
@@ -83,21 +84,14 @@ class StoryList {
       const response = await axios({
         url: `${BASE_URL}/stories`,
         method: "POST",
-        data: { token: user.loginToken, story: { author, title, url } }, 
+        data: { token: user.loginToken, story: { title, author, url } }, 
       });
-      
-      return response;
-      //let newStory = new Story(
-      //  response.data.story.storyId,
-      //  response.data.story.title,
-      //  response.data.story.author,
-      //  response.data.story.url,
-      //  response.data.story.username,
-      // response.data.story.createdAt
-      //);
-      //console.log(newStory);
+      console.log("add story response.data", response.data);
+ 
+      let newStory = new Story(response.data.story);
+      console.log(newStory);
 
-      //StoryList.stories.unshift(newStory);
+      storyList.stories.unshift(newStory);
   }
 }
 
