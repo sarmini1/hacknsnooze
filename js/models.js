@@ -212,12 +212,15 @@ class User {
 
   //allows user to favorite a story and updates the API
   async addFavorite (story) {
-    this.favorites.unshift(story);
+    this.favorites.unshift(story); //push instead of unshift for runtime
 
     const response = await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${this.favorites[0].storyId}`,
       method: "POST",
-      data: { token: this.loginToken, user: { username: this.username, storyId: this.favorites[0].storyId } },
+      data: { 
+        token: this.loginToken, 
+        user: { username: this.username, storyId: story.storyId } 
+      },
     });
 
     console.log("favorited", response)
@@ -237,14 +240,18 @@ class User {
       }
     }
     console.log("storyIndex", storyIndex)
-    this.favorites.splice(storyIndex, 1);
 
     const response = await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${this.favorites[storyIndex].storyId}`,
       method: "DELETE",
-      data: { token: this.loginToken, user: { username: this.username, storyId: this.favorites[storyIndex].storyId } },
+      data: { 
+        token: this.loginToken, 
+        user: { username: this.username, 
+                storyId: this.favorites[storyIndex].storyId } 
+      },
     });
-
+    
+    this.favorites.splice(storyIndex, 1);
     console.log("unfavorited", response)
   }
 }
