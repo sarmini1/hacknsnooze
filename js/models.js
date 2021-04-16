@@ -91,7 +91,7 @@ class StoryList {
       let newStory = new Story(response.data.story);
       //console.log(newStory);
 
-      storyList.stories.unshift(newStory);
+      this.stories.unshift(newStory);//updated this from storyList to this.stories, want to make sure we're
       return newStory;
   }
 }

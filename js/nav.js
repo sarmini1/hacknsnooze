@@ -36,9 +36,9 @@ function updateNavOnLogin() {
 }
 
 //Function will display the story submission form, later used as a callback for when submit button is clicked
-function loadStoryForm(){
+function navShowStoryForm(){ //update function name to something more nav-related
   console.log("loadStoryForm ran");
-  $storyForm.show();
+  $storyForm.slideToggle(); //adds in smooth motion between showing/hiding something
 }
 
-$navSubmit.on("click", loadStoryForm);
+$navSubmit.on("click", navShowStoryForm);
