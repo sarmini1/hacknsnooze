@@ -50,3 +50,21 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+//Function below will retrieve data from the story submission form,
+//then calls the .addStory method from the StoryList class to
+// create a new story and add to page
+async function actualizeStoryFormData(evt){
+  evt.preventDefault();
+
+  const storyTitle = $("#title-field").val();
+  const storyAuthor = $("#author-field").val();
+  const storyURL = $("#url-field").val();
+
+  await storyList.addStory(
+    currentUser, 
+    {title: storyTitle, author: storyAuthor, url: storyURL}
+    );
+}
+
+$storyForm.on("submit", actualizeStoryFormData);
