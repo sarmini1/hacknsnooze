@@ -25,7 +25,7 @@ class Story {
 
   getHostName() {
     // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    return this.url.split("/")[2];
   }
 }
 
@@ -208,5 +208,43 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+
+  //allows user to favorite a story and updates the API
+  async addFavorite (story) {
+    this.favorites.unshift(story);
+
+    const response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${this.favorites[0].storyId}`,
+      method: "POST",
+      data: { token: this.loginToken, user: { username: this.username, storyId: this.favorites[0].storyId } },
+    });
+
+    console.log("favorited", response)
+
+  }
+
+  //allow user to unfavorite a story
+
+  async unFavorite (story) {
+    // let storyIndex = this.favorites.indexOf(story);
+    let storyIndex;
+    for (let storyEntry of this.favorites) {
+      console.log("story.storyId", story.storyId)
+      console.log("storyEntrystoryId", storyEntry.storyId)
+      if(story.storyId === storyEntry.storyId) {
+        storyIndex = this.favorites.indexOf(storyEntry)
+      }
+    }
+    console.log("storyIndex", storyIndex)
+    this.favorites.splice(storyIndex, 1);
+
+    const response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${this.favorites[storyIndex].storyId}`,
+      method: "DELETE",
+      data: { token: this.loginToken, user: { username: this.username, storyId: this.favorites[storyIndex].storyId } },
+    });
+
+    console.log("unfavorited", response)
   }
 }
