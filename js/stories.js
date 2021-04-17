@@ -107,11 +107,6 @@ function checkFavorites(story) {
     }
   }
   return "";
-  // for (let favorite of currentUser.favorites) {
-  //   console.log(favorite.storyId)
-  // }
-  // // console.log(story.storyId)
-  // return currentUser.favorites.find(favorite => favorite.storyId === story.storyId)
 }
 
 //toggles between favorite and unfavorite when star is clicked

@@ -42,3 +42,21 @@ function navShowStoryForm(){ //update function name to something more nav-relate
 }
 
 $navSubmit.on("click", navShowStoryForm);
+
+function navFavoritesClick() {
+  console.log("navfavs clicked");
+  hidePageComponents();
+  $allStoriesList.empty();
+  for (let story of currentUser.favorites){
+    const $story = generateStoryMarkup(story);
+    $allStoriesList.append($story);
+  }
+  $allStoriesList.show();
+}
+
+$navFavorites.on("click", navFavoritesClick);
+
+// $(".navbar-brand").on("click", $navFavorites, navFavoritesClick);
+
+// $("#nav-favorites").on("click", navFavoritesClick);
+
